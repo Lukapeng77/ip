@@ -6,7 +6,7 @@ public class Luka77 {
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
         System.out.println(output);
-        
+
         System.out.println("Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________\n");
     }
