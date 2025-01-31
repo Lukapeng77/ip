@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Luka77 {
     public static void main(String[] args) {
         String chatbot_name = "Luka77";
@@ -7,7 +9,22 @@ public class Luka77 {
                 + "____________________________________________________________\n";
         System.out.println(output);
 
-        System.out.println("Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n");
+        String line;
+        Scanner in = new Scanner(System.in);
+
+        // use a while loop for iteration
+        while (true) {
+            line = in.nextLine();
+
+            if (line.equals("bye")) {
+                System.out.println("___________________________________________________\n"
+                        + " Bye. Hope to see you again soon!\n"
+                        + "____________________________________________________________\n");
+            } else {
+                System.out.println("___________________________________________________\n");
+                System.out.println(" " + line);
+                System.out.println("___________________________________________________\n");
+            }
+        }
     }
 }
