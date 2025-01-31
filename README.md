@@ -21,7 +21,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    below as the output:
    ```
    ____________________________________________________________
-   Hello! I'm [YOUR CHATBOT NAME]
+   Hello! I'm Luka77
    What can I do for you?
    ____________________________________________________________
    Bye. Hope to see you again soon!
