@@ -1,6 +1,30 @@
 import java.util.Scanner;
 
 public class Luka77 {
+    //Create a String array to store the tasks
+    public static Task[] tasks = new Task[100];
+    public static int taskLength = 0;
+
+    // Add task function
+    public static void AddTask(String task) {
+        System.out.println("____________________________________________________________\n"
+                + " added: " + task + "\n"
+                + "____________________________________________________________");
+        Task newTask = new Task(task);
+        tasks[taskLength] = newTask;
+        taskLength++;
+    }
+
+    // Show tasks function
+    public static void showTask() {
+        System.out.println("____________________________________________________________");
+        for (int i = 0; i < taskLength; i++) {
+            System.out.print(" " + (i + 1) + ". ");
+            System.out.print(tasks[i].getDescription() + "\n");
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public static void main(String[] args) {
         String chatbot_name = "Luka77";
         String output = "____________________________________________________________\n"
@@ -16,14 +40,18 @@ public class Luka77 {
         while (true) {
             line = in.nextLine();
 
-            if (line.equals("bye")) {
+            switch (line) {
+            case "bye":
                 System.out.println("___________________________________________________\n"
                         + " Bye. Hope to see you again soon!\n"
                         + "____________________________________________________________\n");
-            } else {
-                System.out.println("___________________________________________________\n");
-                System.out.println(" " + line);
-                System.out.println("___________________________________________________\n");
+                break;
+            case "list":
+                showTask();
+                break;
+            default:
+                AddTask(line);
+                break;
             }
         }
     }
