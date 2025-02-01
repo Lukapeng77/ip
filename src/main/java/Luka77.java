@@ -16,12 +16,33 @@ public class Luka77 {
     }
 
     // Show tasks function
-    public static void showTask() {
+    public static void showTasks() {
         System.out.println("____________________________________________________________");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskLength; i++) {
-            System.out.print(" " + (i + 1) + ". ");
+            System.out.print(" " + (i + 1) + "." + "[" + tasks[i].getStatusIcon() + "] ");
             System.out.print(tasks[i].getDescription() + "\n");
         }
+        System.out.println("____________________________________________________________");
+    }
+
+    // Mark task function
+    public static void markTask(int index) {
+        tasks[index].markAsDone();
+        System.out.println("____________________________________________________________");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.print("[" + tasks[index].getStatusIcon() + "] ");
+        System.out.print(tasks[index].getDescription() + "\n");
+        System.out.println("____________________________________________________________");
+    }
+
+    // Unmark task function
+    public static void unmarkTask(int index) {
+        tasks[index].markAsNotDone();
+        System.out.println("____________________________________________________________");
+        System.out.println("Ok, I've marked this task as not done yet:");
+        System.out.print("[" + tasks[index].getStatusIcon() + "] ");
+        System.out.print(tasks[index].getDescription() + "\n");
         System.out.println("____________________________________________________________");
     }
 
@@ -33,25 +54,40 @@ public class Luka77 {
                 + "____________________________________________________________\n";
         System.out.println(output);
 
-        String line;
+        String task;
         Scanner in = new Scanner(System.in);
 
         // use a while loop for iteration
         while (true) {
-            line = in.nextLine();
-
-            switch (line) {
-            case "bye":
-                System.out.println("___________________________________________________\n"
-                        + " Bye. Hope to see you again soon!\n"
-                        + "____________________________________________________________\n");
+            task = in.nextLine();
+            if (task.equals("bye")) {
                 break;
-            case "list":
-                showTask();
-                break;
-            default:
-                AddTask(line);
-                break;
+            } else if (task.equals("list")) {
+                showTasks();
+            } else if (task.startsWith("mark ")) {
+                try {
+                    int taskIndex = Integer.parseInt(task.split(" ")[1]);
+                    if (taskIndex > 0 && taskIndex <= taskLength) {
+                        markTask(taskIndex);
+                    } else {
+                        System.out.println("Out of bounds!");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error marking task!");
+                }
+            } else if (task.startsWith("unmark ")) {
+                try {
+                    int taskIndex = Integer.parseInt(task.split(" ")[1]);
+                    if (taskIndex > 0 && taskIndex <= taskLength) {
+                        unmarkTask(taskIndex);
+                    } else {
+                        System.out.println("Out of bounds!");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error marking task!");
+                }
+            } else {
+                AddTask(task);
             }
         }
     }
