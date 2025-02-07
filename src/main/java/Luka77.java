@@ -1,18 +1,21 @@
 import java.util.Scanner;
 
 public class Luka77 {
-    //Create a String array to store the tasks
+    //Create an array of tasks list to store the tasks
     public static Task[] tasks = new Task[100];
     public static int taskLength = 0;
 
     // Add task function
-    public static void AddTask(String task) {
-        System.out.println("____________________________________________________________\n"
-                + " added: " + task + "\n"
-                + "____________________________________________________________");
-        Task newTask = new Task(task);
-        tasks[taskLength] = newTask;
+    public static void AddTask(Task task) {
+        tasks[taskLength] = task;
         taskLength++;
+
+        System.out.println("____________________________________________________________\n"
+                + "Got it. I've added this task:" + "\n"
+                + task.toString() + "\n"
+                + "Now you have " + taskLength + " tasks in the list." + "\n"
+                + "____________________________________________________________");
+
     }
 
     // Show tasks function
@@ -20,8 +23,7 @@ public class Luka77 {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskLength; i++) {
-            System.out.print(" " + (i + 1) + "." + "[" + tasks[i].getStatusIcon() + "] ");
-            System.out.print(tasks[i].getDescription() + "\n");
+            System.out.println((i+1) + "." + tasks[i].toFileFormat());
         }
         System.out.println("____________________________________________________________");
     }
@@ -46,7 +48,7 @@ public class Luka77 {
         System.out.println("____________________________________________________________");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String chatbot_name = "Luka77";
         String output = "____________________________________________________________\n"
                 + " Hello! I'm " + chatbot_name + "\n"
@@ -54,32 +56,54 @@ public class Luka77 {
                 + "____________________________________________________________\n";
         System.out.println(output);
 
-        String task;
-        Scanner in = new Scanner(System.in);
-
         // use a while loop for iteration
         while (true) {
-            task = in.nextLine();
-            if (task.equals("bye")) {
+            Scanner userInput = new Scanner(System.in);
+            String task = userInput.nextLine();
+            Task newTask;
+
+            String[] parts = task.split(" ", 2);
+            String type = parts[0];
+            String[] details;
+
+            if (type.equals("bye")) {
+                System.out.println("____________________________________________________________\n"
+                        + "Bye. Hope to see you again soon!\n"
+                        + "____________________________________________________________\n");
                 break;
-            } else if (task.equals("list")) {
+            } else if (type.equals("list")) {
                 showTasks();
-            } else if (task.startsWith("mark ")) {
+            } else if (type.equals("todo")) {
+                newTask = new Todo(parts[1]);
+                AddTask(newTask);
+
+            } else if (type.equals("deadline")) {
+                details = parts[1].split(" /by", 2);
+                newTask = new Deadline(details[0], details[1]);
+                AddTask(newTask);
+
+            } else if (type.equals("event")) {
+                details = parts[1].split(" /from ", 2);
+                String[] durations = details[1].split(" /to ", 2);
+                newTask = new Event(details[0], durations[0], durations[1]);
+                AddTask(newTask);
+
+            } else if (type.equals("mark")) {
                 try {
                     int taskIndex = Integer.parseInt(task.split(" ")[1]);
                     if (taskIndex > 0 && taskIndex <= taskLength) {
-                        markTask(taskIndex);
+                        markTask(taskIndex - 1);
                     } else {
                         System.out.println("Out of bounds!");
                     }
                 } catch (Exception e) {
                     System.out.println("Error marking task!");
                 }
-            } else if (task.startsWith("unmark ")) {
+            } else if (type.equals("unmark")) {
                 try {
                     int taskIndex = Integer.parseInt(task.split(" ")[1]);
                     if (taskIndex > 0 && taskIndex <= taskLength) {
-                        unmarkTask(taskIndex);
+                        unmarkTask(taskIndex - 1);
                     } else {
                         System.out.println("Out of bounds!");
                     }
@@ -87,7 +111,8 @@ public class Luka77 {
                     System.out.println("Error marking task!");
                 }
             } else {
-                AddTask(task);
+                // Handle error message for invalid input
+                throw new Exception("User input is invalid task type!");
             }
         }
     }
