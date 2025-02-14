@@ -1,3 +1,4 @@
+package taskmanager;
 import exceptions.*;
 
 public class InputManager {
