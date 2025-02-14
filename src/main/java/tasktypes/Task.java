@@ -1,3 +1,5 @@
+package tasktypes;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -31,6 +33,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "  [" + this.getStatusIcon() + "]" + this.getDescription();
+        return "[" + this.getStatusIcon() + "]" + this.getDescription();
     }
 }
