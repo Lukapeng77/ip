@@ -27,6 +27,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     public String toFileFormat() {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
