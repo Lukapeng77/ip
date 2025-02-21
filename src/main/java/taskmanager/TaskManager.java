@@ -62,9 +62,21 @@ public class TaskManager {
             } catch (Exception e) {
                 System.out.println("Error marking task!");
             }
-        } else {
-            // Handle error message for invalid input or general error
-            throw new HandleException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+        else if (type.equals("delete")) {
+                try {
+                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    if (taskIndex > 0 && taskIndex <= tasklist.taskLength) {
+                        tasklist.deleteTask(taskIndex - 1);
+                    } else {
+                        System.out.println("Out of bounds!");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error deleting task!");
+                }
+            } else {
+                // Handle error message for invalid input or general error
+                throw new HandleException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
         }
     }
-}

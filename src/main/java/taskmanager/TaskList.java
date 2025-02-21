@@ -1,19 +1,23 @@
 package taskmanager;
 
+import exceptions.HandleException;
 import tasktypes.*;
+
+import java.util.ArrayList;
+
 import static constants.Constants.*;
 
 public class TaskList {
-    private final Task[] tasks;
+    private final ArrayList<Task> tasks;
     int taskLength = 0;
 
-    public TaskList(){
-        tasks = new Task[LIST_SIZE];
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     // Add task function
     public void addTask(Task task) {
-        tasks[taskLength] = task;
+        tasks.add(task);
         taskLength++;
 
         System.out.println(LINE_SEPARATOR
@@ -29,28 +33,37 @@ public class TaskList {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskLength; i++) {
-            System.out.println((i + 1) + "." + tasks[i].toFileFormat());
+            System.out.println((i + 1) + "." + tasks.get(i).toFileFormat());
         }
         System.out.println(LINE_SEPARATOR);
     }
 
     // Mark task function
     public void markTask(int index) {
-        tasks[index].markAsDone();
+        tasks.get(index).markAsDone();
         System.out.println(LINE_SEPARATOR);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.print("[" + tasks[index].getStatusIcon() + "] ");
-        System.out.print(tasks[index].getDescription() + "\n");
+        System.out.print("[" + tasks.get(index).getStatusIcon() + "] ");
+        System.out.print(tasks.get(index).getDescription() + "\n");
         System.out.println(LINE_SEPARATOR);
     }
 
     // Unmark task function
     public void unmarkTask(int index) {
-        tasks[index].markAsNotDone();
+        tasks.get(index).markAsNotDone();
         System.out.println(LINE_SEPARATOR);
         System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.print("[" + tasks[index].getStatusIcon() + "] ");
-        System.out.print(tasks[index].getDescription() + "\n");
+        System.out.print("[" + tasks.get(index).getStatusIcon() + "] ");
+        System.out.print(tasks.get(index).getDescription() + "\n");
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    // delete task function
+    public void deleteTask(int index) {
+        Task removedTask = tasks.remove(index);
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Noted. I've removed this task:\n" + removedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(LINE_SEPARATOR);
     }
 }
