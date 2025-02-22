@@ -12,7 +12,7 @@ public class TaskManager {
         this.ui = ui;
     }
 
-    public void InputProcess(String userInput) throws HandleException {
+    public void inputProcess(String userInput) throws HandleException {
         Task newTask;
         String[] parts = userInput.split(" ", 2);
         String type = parts[0];
@@ -24,7 +24,7 @@ public class TaskManager {
         }
         // Handle error message for empty description.
         else if (parts.length < 2 || parts[1].isEmpty()) {
-            throw new HandleException("OOPS!!! The description of a todo cannot be empty.");
+            throw new MissingInputException();
         } else if (type.equals("todo")) {
             newTask = new Todo(parts[1]);
             tasklist.addTask(newTask);
@@ -43,7 +43,7 @@ public class TaskManager {
         } else if (type.equals("mark")) {
             try {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                if (taskIndex > 0 && taskIndex <= tasklist.taskLength) {
+                if (taskIndex > 0 && taskIndex <= tasklist.getTasks().size()) {
                     tasklist.markTask(taskIndex - 1);
                 } else {
                     System.out.println("Out of bounds!");
@@ -54,7 +54,7 @@ public class TaskManager {
         } else if (type.equals("unmark")) {
             try {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                if (taskIndex > 0 && taskIndex <= tasklist.taskLength) {
+                if (taskIndex > 0 && taskIndex <= tasklist.getTasks().size()) {
                     tasklist.unmarkTask(taskIndex - 1);
                 } else {
                     System.out.println("Out of bounds!");
@@ -66,7 +66,7 @@ public class TaskManager {
         else if (type.equals("delete")) {
                 try {
                     int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                    if (taskIndex > 0 && taskIndex <= tasklist.taskLength) {
+                    if (taskIndex > 0 && taskIndex <= tasklist.getTasks().size()) {
                         tasklist.deleteTask(taskIndex - 1);
                     } else {
                         System.out.println("Out of bounds!");
@@ -76,7 +76,7 @@ public class TaskManager {
                 }
             } else {
                 // Handle error message for invalid input or general error
-                throw new HandleException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new InvalidInputException();
             }
         }
     }

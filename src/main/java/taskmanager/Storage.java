@@ -1,6 +1,7 @@
 package taskmanager;
 
 import tasktypes.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +13,19 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
+    }
+
+    public void createFile() throws IOException {
+        File file = new File(filePath);
+
+        // Ensure the parent directories exist (if there are any)
+        if (file.getParentFile() != null) {
+            file.getParentFile().mkdirs();
+        }
+        // Create the file if it doesn't already exist
+        if (!file.exists()) {
+            file.createNewFile();
+        }
     }
 
     public ArrayList<Task> load() {
@@ -61,7 +75,6 @@ public class Storage {
         } catch (Exception e) {
             System.err.println("Failed to parse line into task: " + line);
         }
-
         return task;
     }
 }

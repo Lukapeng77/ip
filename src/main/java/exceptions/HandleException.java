@@ -5,4 +5,8 @@ public class HandleException extends Exception {
         super(message);
     }
 
+    public void printErrorMessage() {
+        System.out.println("Error: " + getMessage());
+    }
+
 }

@@ -1,6 +1,5 @@
 package taskmanager;
 
-import exceptions.HandleException;
 import tasktypes.*;
 
 import java.util.ArrayList;
@@ -9,21 +8,24 @@ import static constants.Constants.*;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
-    int taskLength = 0;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    // Return an ArrayList of Tasks
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     // Add task function
     public void addTask(Task task) {
         tasks.add(task);
-        taskLength++;
 
         System.out.println(LINE_SEPARATOR
                 + "Got it. I've added this task:" + "\n"
                 + task.toString() + "\n"
-                + "Now you have " + taskLength + " tasks in the list." + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list." + "\n"
                 + LINE_SEPARATOR);
 
     }
@@ -32,7 +34,7 @@ public class TaskList {
     public void showTasks() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskLength; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i).toFileFormat());
         }
         System.out.println(LINE_SEPARATOR);
