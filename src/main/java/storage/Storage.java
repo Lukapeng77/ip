@@ -1,4 +1,4 @@
-package taskmanager;
+package storage;
 
 import tasktypes.*;
 
@@ -25,6 +25,12 @@ public class Storage {
         // Create the file if it doesn't already exist
         if (!file.exists()) {
             file.createNewFile();
+        }
+    }
+
+    public void writeFile(String input) throws IOException {
+        try (FileWriter fw = new FileWriter(filePath, true)) {
+            fw.append(input).append(System.lineSeparator());
         }
     }
 

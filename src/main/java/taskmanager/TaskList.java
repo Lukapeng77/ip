@@ -18,16 +18,19 @@ public class TaskList {
         return tasks;
     }
 
+    public int getTaskCount() {
+        return tasks.size();
+    }
+
     // Add task function
     public void addTask(Task task) {
         tasks.add(task);
 
-        System.out.println(LINE_SEPARATOR
-                + "Got it. I've added this task:" + "\n"
+        UserInterface.showLine();
+        System.out.println("Got it. I've added this task:" + "\n"
                 + task.toString() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list." + "\n"
-                + LINE_SEPARATOR);
-
+                + "Now you have " + tasks.size() + " tasks in the list." + "\n");
+        UserInterface.showLine();
     }
 
     // Show tasks function
@@ -43,21 +46,21 @@ public class TaskList {
     // Mark task function
     public void markTask(int index) {
         tasks.get(index).markAsDone();
-        System.out.println(LINE_SEPARATOR);
+        /*System.out.println(LINE_SEPARATOR);
         System.out.println("Nice! I've marked this task as done:");
         System.out.print("[" + tasks.get(index).getStatusIcon() + "] ");
         System.out.print(tasks.get(index).getDescription() + "\n");
-        System.out.println(LINE_SEPARATOR);
+        System.out.println(LINE_SEPARATOR);*/
     }
 
     // Unmark task function
     public void unmarkTask(int index) {
         tasks.get(index).markAsNotDone();
-        System.out.println(LINE_SEPARATOR);
+        /*System.out.println(LINE_SEPARATOR);
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.print("[" + tasks.get(index).getStatusIcon() + "] ");
         System.out.print(tasks.get(index).getDescription() + "\n");
-        System.out.println(LINE_SEPARATOR);
+        System.out.println(LINE_SEPARATOR);*/
     }
 
     // delete task function
@@ -68,4 +71,23 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(LINE_SEPARATOR);
     }
+
+    // find task function
+    public void findTask(String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 0;
+        ArrayList<Task> findList = new ArrayList<>(tasks);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                //System.out.println((i + 1) + "." + task);
+                findList.add(task);
+                count++;
+            }
+        }
+        if (count == 0) {
+            System.out.println("No matching tasks found :(");
+        }
+    }
+
 }
