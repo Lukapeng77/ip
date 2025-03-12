@@ -2,9 +2,10 @@ package taskmanager;
 
 import tasktypes.*;
 
-import java.util.ArrayList;
-
 import static constants.Constants.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -26,22 +27,22 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
 
-        UserInterface.showLine();
+        /*UserInterface.showLine();
         System.out.println("Got it. I've added this task:" + "\n"
                 + task.toString() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list." + "\n");
-        UserInterface.showLine();
+        UserInterface.showLine();*/
     }
 
     // Show tasks function
-    public void showTasks() {
+    /*public void showTasks() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i).toFileFormat());
         }
         System.out.println(LINE_SEPARATOR);
-    }
+    }*/
 
     // Mark task function
     public void markTask(int index) {
@@ -65,29 +66,39 @@ public class TaskList {
 
     // delete task function
     public void deleteTask(int index) {
-        Task removedTask = tasks.remove(index);
-        System.out.println(LINE_SEPARATOR);
+        tasks.remove(index);
+        /*System.out.println(LINE_SEPARATOR);
         System.out.println("Noted. I've removed this task:\n" + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(LINE_SEPARATOR);
+        System.out.println(LINE_SEPARATOR);*/
     }
 
     // find task function
-    public void findTask(String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
-        int count = 0;
-        ArrayList<Task> findList = new ArrayList<>(tasks);
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                //System.out.println((i + 1) + "." + task);
-                findList.add(task);
-                count++;
+                matchingTasks.add(task);
             }
         }
-        if (count == 0) {
-            System.out.println("No matching tasks found :(");
-        }
+        return matchingTasks;
     }
 
+    // find task date function
+    public ArrayList<Task> findTasksByDate(LocalDate date) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                if (((Deadline) task).getBy().toLocalDate().equals(date)) {
+                    matchingTasks.add(task);
+                }
+            } else if (task instanceof Event) {
+                if (((Event) task).getFrom().toLocalDate().equals(date) || ((Event) task).getTo().toLocalDate().equals(date)) {
+                    matchingTasks.add(task);
+                }
+            }
+        }
+        return matchingTasks;
+    }
 }

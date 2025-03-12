@@ -2,6 +2,7 @@ package taskmanager;
 
 import tasktypes.Task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,48 +40,65 @@ public class UserInterface {
     }
 
     public static void printMarkAsDone(Task task) {
+        showLine();
         System.out.printf(INDENT + "Nice! I've marked this task as done:%n", "");
         System.out.printf(INDENT + "%s\n", "", task.toString());
+        showLine();
     }
 
     public static void printMarkAsUndone(Task task) {
+        showLine();
         System.out.printf(INDENT + "OK, I've marked this task as not done yet:%n", "");
         System.out.printf(INDENT + "%s\n", "", task.toString());
+        showLine();
     }
 
     public static void printTask(ArrayList<Task> task, int taskCount) {
-        int listIndex = 1;
+        showLine();
         for (int i = 0; i < taskCount; i++) {
-            System.out.printf(INDENT + "%d. %s%n", "", listIndex, task.get(i).toString());
-            listIndex++;
+            System.out.println((i + 1) + ". " + task.get(i).toFileFormat());
         }
+        showLine();
     }
 
     public static void printAddedTask(Task task, int taskCount) {
+        showLine();
         System.out.printf(INDENT + "Got it. I've added this task:\n", "");
         System.out.printf(INDENT + "%s\n", "", task.toString());
         System.out.printf(INDENT + "Now you have %d tasks in the list.%n", "", taskCount);
+        showLine();
     }
 
     public static void printDeleteTask(Task task, int taskCount) {
+        showLine();
         System.out.printf(INDENT + "Noted. I've removed this task:\n", "");
         System.out.printf(INDENT + "%s\n", "", task.toString());
         System.out.printf(INDENT + "Now you have %d tasks in the list.%n", "", taskCount);
+        showLine();
     }
 
-    public static void printFindTask(ArrayList<Task> tasks, int taskCount, String keyword) {
+    public static void printFindTask(ArrayList<Task> matchingTasks, int taskCount) {
+        showLine();
         System.out.println("Here are the matching tasks in your list:");
-        int count = 0;
-        for (int i = 0; i < taskCount; i++) {
-            Task task = tasks.get(i);
-            if (task.getDescription().contains(keyword)) {
-                System.out.println((i + 1) + "." + task);
-                count++;
+        if (taskCount == 0) {
+            System.out.println("No matching tasks found :(");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < taskCount; i += 1) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
             }
         }
-        if (count == 0) {
-            System.out.println("No matching tasks found :(");
+        showLine();
+    }
+
+    public void showTasksByDate(ArrayList<Task> matchingTasks, LocalDate checkDate) {
+        showLine();
+        System.out.println("Here are the list of tasks that are due on " + checkDate + ":");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i).toFileFormat());
         }
+        System.out.println("You have " + matchingTasks.size() + " tasks in the list.");
+        showLine();
     }
 
     public void printGoodbyeMessage() {
