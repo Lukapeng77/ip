@@ -1,32 +1,20 @@
 package tasktypes;
 
-import java.time.LocalDateTime;
-
-
-import static constants.Constants.*;
-
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected String by;
 
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
-    public LocalDateTime getBy() {
-        return by;
-    }
-
     @Override
     public String toFileFormat() {
-        return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, by.format(OUTPUT_DATE_FORMAT));
+        return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, by);
     }
 
     @Override
     public String toString() {
-        return "  [D]" + super.toString() + " (by: " + by.format(INPUT_DATE_FORMAT) + ")";
+        return "  [D]" + super.toString() + " (by: " + by + ")";
     }
-
-
-
 }

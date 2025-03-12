@@ -1,29 +1,22 @@
 package command;
 
-import exceptions.HandleException;
-import static exceptions.ExceptionTypes.*;
 import storage.Storage;
 import taskmanager.TaskList;
 import taskmanager.*;
 import tasktypes.*;
-import static constants.Constants.*;
-
 import java.io.IOException;
-import java.time.LocalDateTime;
 
-public class DeadlineCommand extends Command {
+public class DeadlineCommand extends Command{
     String description;
-    LocalDateTime by;
-
-    public DeadlineCommand(String description, LocalDateTime by) {
+    String by;
+    public DeadlineCommand(String description, String by) {
         this.description = description;
         this.by = by;
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) throws HandleException {
+    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
         Task newTask = new Deadline(description, by);
-
         taskList.addTask(newTask);
         try {
             storage.writeFile(newTask.toString());
