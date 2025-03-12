@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 package exceptions;
 
 public class MissingInputException extends HandleException{
@@ -12,6 +13,8 @@ public class MissingInputException extends HandleException{
     }
 }
 =======
+=======
+>>>>>>> Stashed changes
 package exceptions;
 
 public class MissingInputException extends HandleException{
@@ -24,4 +27,7 @@ public class MissingInputException extends HandleException{
         super.printErrorMessage();
     }
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
