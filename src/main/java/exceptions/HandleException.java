@@ -1,14 +1,12 @@
 package exceptions;
 
 public class HandleException extends Exception {
-    protected ExceptionTypes exceptionType;
-
-    public HandleException(ExceptionTypes exceptionType){
-        super(exceptionType.getMessage());
-        this.exceptionType = exceptionType;
+    public HandleException(String message) {
+        super(message);
     }
 
-    public String getMessage(){
-        return exceptionType.getMessage();
+    public void printErrorMessage() {
+        System.out.println("Error: " + getMessage());
     }
+
 }
