@@ -63,8 +63,8 @@ public class Storage {
         }
     }
 
-    private Task parseLineToTask(String line) {
-        String[] parts = line.split(" \\| ");
+    private Task parseLineToTask(String userInput) {
+        String[] parts = userInput.split(" \\| ");
         String type = parts[0];
         Task task = null;
 
@@ -89,7 +89,7 @@ public class Storage {
                 task.setDone(isDone);
             }
         } catch (Exception e) {
-            System.err.println("Failed to parse line into task: " + line);
+            System.err.println("Failed to parse line into task: " + userInput);
         }
         return task;
     }

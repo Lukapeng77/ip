@@ -1,8 +1,9 @@
 package command;
 
+import UserInterface.Ui;
 import storage.Storage;
 import taskmanager.TaskList;
-import taskmanager.*;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command{
@@ -12,8 +13,8 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
-        UserInterface.printDeleteTask(taskList.getTasks().get(taskIndex), taskList.getTaskCount() - 1);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        Ui.printDeleteTask(taskList.getTasks().get(taskIndex), taskList.getTaskCount() - 1);
         taskList.deleteTask(taskIndex);
         try {
             storage.save(taskList.getTasks());

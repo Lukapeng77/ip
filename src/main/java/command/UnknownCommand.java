@@ -1,8 +1,8 @@
 package command;
 
+import UserInterface.Ui;
 import storage.Storage;
 import taskmanager.TaskList;
-import taskmanager.*;
 
 public class UnknownCommand extends Command{
     String message;
@@ -11,7 +11,7 @@ public class UnknownCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.printMessage(message);
     }
 }

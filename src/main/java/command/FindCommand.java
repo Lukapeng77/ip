@@ -2,7 +2,7 @@ package command;
 
 import storage.Storage;
 import taskmanager.TaskList;
-import taskmanager.UserInterface;
+import UserInterface.Ui;
 import tasktypes.Task;
 
 import java.io.IOException;
@@ -16,14 +16,14 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<Task>matchingTasks = taskList.findTask(keyword);
         try {
             storage.save(taskList.getTasks());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        UserInterface.printFindTask(matchingTasks, matchingTasks.size());
+        Ui.printFindTask(matchingTasks, matchingTasks.size());
     }
 }
 

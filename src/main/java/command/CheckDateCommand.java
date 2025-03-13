@@ -1,12 +1,12 @@
 package command;
 
-import static exceptions.ExceptionTypes.*;
-
+import UserInterface.Ui;
 import exceptions.HandleException;
 import storage.Storage;
 import taskmanager.*;
 import tasktypes.*;
 import static constants.Constants.SEARCH_DATE_FORMAT;
+import static exceptions.ExceptionTypes.INVALID_DATE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -26,7 +26,7 @@ public class CheckDateCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) throws HandleException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws HandleException {
 
         // Search for tasks matching the specified date
         ArrayList<Task> matchingTasks = taskList.findTasksByDate(dateTime);

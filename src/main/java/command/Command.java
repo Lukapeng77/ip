@@ -3,10 +3,10 @@ package command;
 import exceptions.HandleException;
 import storage.Storage;
 import taskmanager.TaskList;
-import taskmanager.UserInterface;
+import UserInterface.Ui;
 
 public class Command {
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) throws HandleException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws HandleException {
 
     }
 

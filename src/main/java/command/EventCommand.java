@@ -1,5 +1,6 @@
 package command;
 
+import UserInterface.Ui;
 import storage.Storage;
 import taskmanager.*;
 import tasktypes.*;
@@ -18,7 +19,7 @@ public class EventCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task newTask = new Event(description, from, to);
         taskList.addTask(newTask);
         try {
@@ -26,6 +27,6 @@ public class EventCommand extends Command{
         } catch (IOException e) {
             ui.printMessage("Error writing to file: " + e.getMessage());
         }
-        UserInterface.printAddedTask(newTask, taskList.getTaskCount());
+        Ui.printAddedTask(newTask, taskList.getTaskCount());
     }
 }

@@ -1,8 +1,8 @@
 package command;
 
+import UserInterface.Ui;
 import storage.Storage;
 import taskmanager.TaskList;
-import taskmanager.*;
 import tasktypes.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public class DeadlineCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, UserInterface ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task newTask = new Deadline(description, by);
         taskList.addTask(newTask);
         try {
@@ -24,6 +24,6 @@ public class DeadlineCommand extends Command{
         } catch (IOException e) {
             ui.printMessage("Error writing to file: " + e.getMessage());
         }
-        UserInterface.printAddedTask(newTask, taskList.getTaskCount());
+        Ui.printAddedTask(newTask, taskList.getTaskCount());
     }
 }

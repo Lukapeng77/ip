@@ -1,9 +1,6 @@
 package taskmanager;
 
 import tasktypes.*;
-
-import static constants.Constants.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
