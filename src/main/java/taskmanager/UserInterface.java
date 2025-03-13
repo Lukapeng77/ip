@@ -55,8 +55,13 @@ public class UserInterface {
 
     public static void printTask(ArrayList<Task> task, int taskCount) {
         showLine();
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + task.get(i).toFileFormat());
+        if (task.isEmpty()) {
+            System.out.println("You don't have any tasks yet. Need to add a new one first!");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + ". " + task.get(i).toFileFormat());
+            }
         }
         showLine();
     }

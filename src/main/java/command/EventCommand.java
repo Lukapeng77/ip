@@ -5,12 +5,13 @@ import taskmanager.*;
 import tasktypes.*;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class EventCommand extends Command{
     String description;
-    String from;
-    String to;
-    public EventCommand(String description, String from, String to) {
+    LocalDateTime from;
+    LocalDateTime to;
+    public EventCommand(String description, LocalDateTime from, LocalDateTime to) {
         this.description = description;
         this.from = from;
         this.to = to;

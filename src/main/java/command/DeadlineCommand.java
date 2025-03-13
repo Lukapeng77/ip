@@ -5,11 +5,12 @@ import taskmanager.TaskList;
 import taskmanager.*;
 import tasktypes.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Command{
     String description;
-    String by;
-    public DeadlineCommand(String description, String by) {
+    LocalDateTime by;
+    public DeadlineCommand(String description, LocalDateTime by) {
         this.description = description;
         this.by = by;
     }
