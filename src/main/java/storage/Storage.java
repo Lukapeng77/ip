@@ -1,10 +1,12 @@
 package storage;
 
 import tasktypes.*;
+import static constants.Constants.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,12 +69,20 @@ public class Storage {
         Task task = null;
 
         try {
-            task = switch (type) {
-                case "T" -> new Todo(parts[2].trim());
-                case "D" -> new Deadline(parts[2].trim(), parts[3].trim());
-                case "E" -> new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
-                default -> task;
-            };
+            switch (type) {
+            case "T":
+                new Todo(parts[2].trim());
+                break;
+            case "D":
+                LocalDateTime by = LocalDateTime.parse(parts[3].trim(), INPUT_DATE_FORMAT);
+                new Deadline(parts[2].trim(), by);
+                break;
+            case "E":
+                LocalDateTime from = LocalDateTime.parse(parts[3], INPUT_DATE_FORMAT);
+                LocalDateTime to = LocalDateTime.parse(parts[4], INPUT_DATE_FORMAT);
+                new Event(parts[2].trim(), from, to);
+                break;
+            }
 
             if (task != null) {
                 boolean isDone = parts[1].trim().equals("1");
