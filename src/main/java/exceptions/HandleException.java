@@ -7,7 +7,7 @@ public class HandleException extends Exception {
     protected ExceptionTypes exception;
 
     /**
-     * Constructs an OrangeException with a specified exception type.
+     * Constructs an HandleException with a specified exception type.
      *
      * @param exception The specific exception type.
      */
@@ -15,14 +15,4 @@ public class HandleException extends Exception {
         super(exception.getMessage()); // Set message
         this.exception = exception;
     }
-
-    /**
-     * Retrieves the error message associated with this exception.
-     *
-     * @return The error message.
-     */
-    public String getCustomMessage() {
-        return exception.getMessage();
-    }
-
 }
