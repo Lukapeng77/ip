@@ -17,7 +17,7 @@ tasks based on the specific date and time.
     - [Deleting a Task](#deleting-a-task)
     - [Finding a Task](#finding-a-task)
     - [Checking certain date of the task](#checking-certain-date-of-the-task)
-5. [Exiting the Application](#exiting-the-application)
+4. [Exiting the Application](#exiting-the-application)
 
 ## Main Features
 
