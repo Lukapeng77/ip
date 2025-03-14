@@ -109,6 +109,7 @@ public class Ui {
             for (int i = 0; i < taskCount; i++) {
                 System.out.println((i + 1) + ". " + task.get(i).toFileFormat());
             }
+            System.out.println("You have " + taskCount + " tasks in the list.");
         }
         showLine();
     }

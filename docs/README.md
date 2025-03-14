@@ -114,6 +114,8 @@ delete 3
 
     Noted. I've removed this task:
       [E][ ]project meeting (from: 2024-03-14 1800 to: 2024-03-14 2000)
+    Now you have 2 tasks in the list.
+
     this can be verified by listing all tasks:
 
     list
