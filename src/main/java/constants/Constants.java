@@ -12,7 +12,7 @@ public class Constants {
     /**
      * Line separator used for UI formatting.
      */
-    public static final String LINE_SEPARATOR = "____________________________________________________________\n";
+    public static final String LINE_SEPARATOR = "____________________________________________________________";
 
     /**
      * Indentation format used in printed messages.
