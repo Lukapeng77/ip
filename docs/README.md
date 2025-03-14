@@ -119,7 +119,7 @@ delete 3
     list
     Here are the tasks in your list:
     1. [T][ ] read book
-    2. [D][ ] return book (by: Sep 17 2021)
+    2. [D][ ] return book (by: Mar 14 2024, 06:00 pm)
 
 ## Marking a task as done
 
