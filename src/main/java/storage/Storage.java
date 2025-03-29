@@ -5,6 +5,7 @@ import tasktypes.*;
 import parser.DateParser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class Storage {
     /**
      * The file path where tasks are stored.
      */
-    private final String filePath;
+    private static String filePath;
 
     /**
      * Constructs a {@code Storage} instance with the specified file path.
@@ -27,7 +28,7 @@ public class Storage {
      * @param filePath the file path where tasks will be stored.
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        Storage.filePath = filePath;
     }
 
     /**
@@ -65,7 +66,7 @@ public class Storage {
      *
      * @return an {@code ArrayList} of tasks retrieved from the file.
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(filePath);
         if (file.exists()) {
@@ -104,7 +105,7 @@ public class Storage {
      * @param userInput a string representing a stored task.
      * @return a {@code Task} object parsed from the input line, or {@code null} if parsing fails.
      */
-    private Task parseLineToTask(String userInput) {
+    private static Task parseLineToTask(String userInput) {
         String[] parts = userInput.split(" \\| ");
         String type = parts[0];
         Task task = null;

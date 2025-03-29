@@ -5,56 +5,88 @@ import command.Command;
 import exceptions.HandleException;
 import storage.Storage;
 import parser.Parser;
-import tasktypes.Task;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The {@code Luka} class serves as the main entry point for the task manager application.
- * It initializes the required components, handles user interactions, and manages task storage.
+ * The {@code Luka} class is the main entry point of the task management chatbot application.
+ * It initializes all core components (UI, storage, parser, and task list) and handles
+ * the execution loop for reading and processing user commands.
  */
 public class Luka {
+    /**
+     * Handles loading and saving tasks to a file.
+     */
+    private Storage storage;
 
     /**
-     * The main method that starts the task manager application.
-     * It initializes the storage, task list, user interface, and command parser.
-     * The program runs in a loop, continuously accepting and executing user commands until an exit command is issued.
-     *
-     * @param args Command-line arguments (not used in this application).
-     * @throws HandleException If an error occurs while processing user commands.
-     * @throws IOException     If an error occurs while reading or writing to the storage file.
+     * Handles user input and output messages.
      */
-    public static void main(String[] args) throws HandleException, IOException {
-        // Initialize storage and load existing tasks
-        Storage storage = new Storage("data/luka.txt");
-        ArrayList<Task> loadedTasks = storage.load();
-        TaskList taskList = new TaskList(loadedTasks); // Initialize the task list.
-        Ui ui = new Ui(); // Component for user interactions.
-        Parser parser = new Parser(taskList, ui);
+    private Ui ui;
 
-        // Display a welcome message
-        ui.printWelcomeMessage();
+    /**
+     * Manages the list of tasks in memory.
+     */
+    private TaskList tasks;
 
+    /**
+     * The {@code Parser} instance is responsible for parsing user input into executable commands.
+     * It converts raw user input into specific command objects.
+     */
+    private Parser parser;
+
+    /**
+     * Constructs a new instance of the Luka chatbot.
+     *
+     * @param filePath the file path used to load and store task data
+     */
+    public Luka(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            // Create file if it does not exist and load tasks
             storage.createFile();
-            for (Task task : loadedTasks) {
-                taskList.addTask(task);
-            }
+            tasks = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.showError("Could not load tasks: " + e.getMessage());
+            ui.showError("No existing task data found. Please Start with an empty task list first.");
+            tasks = new TaskList(new ArrayList<>());
         }
+    }
 
-        // Main application loop
+    /**
+     * Starts the main loop of the chatbot.
+     * Displays the welcome message, continuously reads user input,
+     * parses and executes commands until the exit command is issued.
+     * Any {@code HandleException} thrown during command parsing or execution
+     * is caught and displayed without terminating the application.
+     */
+    public void run() {
+        ui.printWelcomeMessage();
+        parser = new Parser(tasks, ui);
+
         boolean isExit = false;
         while (!isExit) {
-            String userInput = ui.readCommand(); // Read user input
-
-            Command command = parser.parse(userInput); // Parse the input into a command
-            command.execute(taskList, ui, storage); // Execute the command
-            storage.save(taskList.getTasks()); // Save the updated task list
-            isExit = command.isExit(); // Check if the exit command was issued
+            try {
+                String fullCommand = ui.readCommand();
+                Command command = parser.parse(fullCommand);
+                // Executes the command, displays messages, and updates the task file accordingly.
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
+            } catch (HandleException e) {
+                ui.showError(e.getMessage());
+            }
         }
+    }
+
+    /**
+     * The main method of the application.
+     * Creates an instance of Luka and starts the chatbot.
+     *
+     * @param args command-line arguments (not used)
+     */
+    public static void main(String[] args) {
+        // A relative path is used for the txt file that stores the tasks
+        new Luka("./data/luka.txt").run();
     }
 }

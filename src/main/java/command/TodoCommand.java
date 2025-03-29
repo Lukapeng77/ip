@@ -39,7 +39,7 @@ public class TodoCommand extends Command {
         Task newTask = new Todo(description);
         taskList.addTask(newTask);
         try {
-            storage.writeFile(newTask.toString());
+            storage.save(taskList.getTasks());
         } catch (IOException e) {
             ui.printMessage("Error writing to file: " + e.getMessage());
         }

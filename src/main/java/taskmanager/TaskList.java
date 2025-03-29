@@ -1,6 +1,7 @@
 package taskmanager;
 
 import tasktypes.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -12,7 +13,14 @@ public class TaskList {
     /**
      * A list of tasks managed by this task list.
      */
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
+
+    /**
+     * Instantiates an empty task list.
+     */
+    public TaskList() {
+        tasks = new ArrayList<>();
+    }
 
     /**
      * Constructs a {@code TaskList} instance with a given list of tasks.

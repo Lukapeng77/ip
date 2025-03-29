@@ -5,14 +5,13 @@ import exceptions.HandleException;
 import storage.Storage;
 import taskmanager.*;
 import tasktypes.*;
-
 import parser.DateParser;
-
-import static exceptions.ExceptionTypes.INVALID_DATE;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import static constants.Constants.INVALID_DATE;
 
 /**
  * The {@code CheckDateCommand} class represents a command to check for tasks scheduled on a specific date.

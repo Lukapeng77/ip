@@ -2,13 +2,11 @@ package parser;
 
 import exceptions.HandleException;
 
-import static exceptions.ExceptionTypes.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static constants.Constants.INPUT_DATE_FORMATS;
+import static constants.Constants.*;
 
 public class DateParser {
     /**

@@ -39,6 +39,10 @@ public class Constants {
     public static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern(" MMM dd yyyy, hh:mm a ");
 
     // Command keywords
+    /**
+     * Command keyword for showing all the available commands.
+     */
+    public static final String COMMAND_HELP = "help";
 
     /**
      * Command keyword for listing tasks.
@@ -116,6 +120,36 @@ public class Constants {
             "No idea what that means, please give the command with a keyword! " +
                     "List of keywords: \"mark\", \"unmark\", \"list\", \"todo\", \"event\", " +
                     "\"deadline\", \"delete\", \"checkDate\"";
+
+    /**
+     * Represents a invalid input exception.
+     */
+    public static final String INVALID_INPUT = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+
+    /**
+     * Represents a missing input exception.
+     */
+    public static final String MISSING_INPUT = "OOPS!!! The description of a task cannot be empty.";
+
+    /**
+     * Represents a missing deadline due date exception.
+     */
+    public static final String MISSING_CHECK_DATE_BODY = "You have not provided a date and time by which to check the date. Try this: checkDate [Date Time]";
+
+    /**
+     * Represents an invalid find task exception.
+     */
+    public static final String INVALID_FIND_TASK = "You have not entered a task. Try this: find [task]";
+
+    /**
+     * Represents an incorrect date and time format exception.
+     */
+    public static final String INCORRECT_DATE_AND_TIME_FORMAT = "Date Or Time Format Provided Is Incorrect. Try in the following formats: \"yyyy-mm-dd HHmm\", \"dd-mm-yyyy HHmm\", \"dd/mm/yyyy HHmm\"";
+
+    /**
+     * Represents an invalid date exception.
+     */
+    public static final String INVALID_DATE = "You have entered an invalid date. Try in this format: yyyy-mm-dd";
 
     /**
      * Error message displayed when an index is out of bounds.

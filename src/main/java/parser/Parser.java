@@ -9,7 +9,7 @@ import static constants.Constants.*;
 
 import java.time.LocalDateTime;
 
-import static exceptions.ExceptionTypes.*;
+import static constants.Constants.INVALID_FIND_TASK;
 
 /**
  * The {@code Parser} class is responsible for processing user input and
@@ -51,12 +51,10 @@ public class Parser {
         // Check for exit and list commands before processing further.
         if (type.equals(COMMAND_GOODBYE)) {
             return new ExitCommand();
+        } else if (type.equals(COMMAND_HELP)) {
+            return new HelpCommand();
         } else if (type.equals(COMMAND_LIST)) {
             return new ListCommand();
-        }
-        // Handle error message for empty description.
-        else if (parts.length < 2 || parts[1].isEmpty()) {
-            throw new HandleException(MISSING_INPUT);
         } else if (type.equals(COMMAND_TODO)) {
             return new TodoCommand(parts[1]);
 
@@ -82,6 +80,9 @@ public class Parser {
             return processFindCommand(userInput);
         } else if (type.equals(COMMAND_CHECK_DATE)) {
             return processCheckDateCommand(userInput);
+        }// Handle error message for empty description.
+        else if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new HandleException(INVALID_INPUT);
         } else {
             throw new HandleException(INVALID_INPUT);
         }
@@ -156,11 +157,11 @@ public class Parser {
     private Command processFindCommand(String userInput) {
         try {
             if (userInput.length() <= 5) {
-                throw new HandleException(INVALID_FINDTASK);
+                throw new HandleException(INVALID_FIND_TASK);
             }
             String keyword = userInput.substring(5).trim();
             if (keyword.isEmpty()) {
-                throw new HandleException(INVALID_FINDTASK);
+                throw new HandleException(INVALID_FIND_TASK);
             }
             return new FindCommand(keyword);
         } catch (HandleException e) {

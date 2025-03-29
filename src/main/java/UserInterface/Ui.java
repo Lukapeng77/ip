@@ -45,6 +45,7 @@ public class Ui {
         showLine();
     }
 
+
     /**
      * Prints a given message to the console.
      *
